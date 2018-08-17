@@ -36,15 +36,10 @@ namespace TelerikPropertyGrid
 
         public PropertyDescriptorCollection GetProperties()
         {
-            var standartProps = TypeDescriptor.GetProperties(this[0]);
             var customizedProps = new PropertyDescriptorCollection(null);
 
             for (int i = 0; i < this.List.Count; i++)
             {
-                // For each employee create a property descriptor 
-                // and add it to the 
-                // PropertyDescriptorCollection instance
-                var p = standartProps[i];
                 var pd = new ObjectBrowserPropertyDescriptor(this[i]);
                 customizedProps.Add(pd);
             }
@@ -114,11 +109,6 @@ namespace TelerikPropertyGrid
             _foo = foo;
         }
 
-
-
-
-
-
         public override string DisplayName
         {
             get
@@ -137,25 +127,20 @@ namespace TelerikPropertyGrid
             get { return _foo.SomeColor.GetType(); }
         }
 
-
-
-
-
+        public override AttributeCollection Attributes
+        {
+            get
+            {
+                var editor = TypeDescriptor.GetProperties(_foo)[1].GetEditor(typeof(UITypeEditor));
+                return TypeDescriptor.GetProperties(_foo)[1].Attributes;
+            }
+        }
 
         public override string Description
         {
             get
             {
                 return "PropertyDescriptor.Description";
-            }
-        }
-
-        public override AttributeCollection Attributes
-        {
-            get
-            {
-                var t = TypeDescriptor.GetProperties(_foo)[1].GetEditor(typeof(UITypeEditor));
-                return TypeDescriptor.GetProperties(_foo)[1].Attributes;
             }
         }
 

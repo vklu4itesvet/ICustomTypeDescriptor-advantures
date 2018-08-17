@@ -9,7 +9,7 @@ namespace TelerikPropertyGrid
         public int Id { get; set; }
 
         [Browsable(true)]
-        [Editor(typeof(UiImagePropertiesEditor), typeof(UITypeEditor))]
+        [Editor(typeof(ColorPropertiesEditor), typeof(UITypeEditor))]
         public Color SomeColor { get; set; } = Color.Blue;
     }
 }
