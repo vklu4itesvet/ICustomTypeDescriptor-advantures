@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Drawing.Design;
 
 namespace TelerikPropertyGrid
 {
@@ -149,7 +146,7 @@ namespace TelerikPropertyGrid
         {
             get
             {
-                return _foo.SomeColor.ToString();
+                return "PropertyDescriptor.Description";
             }
         }
 
@@ -157,7 +154,8 @@ namespace TelerikPropertyGrid
         {
             get
             {
-                return new AttributeCollection(null);
+                var t = TypeDescriptor.GetProperties(_foo)[1].GetEditor(typeof(UITypeEditor));
+                return TypeDescriptor.GetProperties(_foo)[1].Attributes;
             }
         }
 
