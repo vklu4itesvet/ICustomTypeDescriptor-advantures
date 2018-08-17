@@ -57,8 +57,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ColorPropertiesEditor.cs" />
     <Compile Include="Foo.cs" />
     <Compile Include="FooProperties.cs" />
+    <Compile Include="ImagePropertiesEditor.cs" />
     <Compile Include="RadForm1.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -39,19 +39,20 @@ namespace TelerikPropertyGrid
 
         public PropertyDescriptorCollection GetProperties()
         {
-            // Create a new collection object PropertyDescriptorCollection
-            var pds = new PropertyDescriptorCollection(null);
+            var standartProps = TypeDescriptor.GetProperties(this[0]);
+            var customizedProps = new PropertyDescriptorCollection(null);
 
             for (int i = 0; i < this.List.Count; i++)
             {
                 // For each employee create a property descriptor 
                 // and add it to the 
                 // PropertyDescriptorCollection instance
+                var p = standartProps[i];
                 var pd = new ObjectBrowserPropertyDescriptor(this[i]);
-                pds.Add(pd);
+                customizedProps.Add(pd);
             }
 
-            return pds;
+            return customizedProps;
         }
 
         public String GetClassName()

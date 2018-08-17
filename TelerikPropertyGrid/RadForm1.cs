@@ -28,6 +28,9 @@ namespace TelerikPropertyGrid
 
             propertyGridWinForms.SelectedObject = fooProperties;
             propertyGridTelerik.SelectedObject = fooProperties;
+
+        
+            propertyGridTelerik.SelectedObject = new Foo { Id = 2, SomeColor = Color.Orange };
         }
     }
 }
