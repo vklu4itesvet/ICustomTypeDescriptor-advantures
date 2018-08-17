@@ -10,6 +10,6 @@ namespace TelerikPropertyGrid
 
         [Browsable(true)]
         [Editor(typeof(ColorPropertiesEditor), typeof(UITypeEditor))]
-        public Color SomeColor { get; set; } = Color.Blue;
+        public string SomeColor { get; set; } 
     }
 }
