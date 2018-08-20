@@ -28,7 +28,10 @@ namespace TelerikPropertyGrid
         public override void PaintValue(PaintValueEventArgs e)
         {
             var fillColor = Color.FromArgb(int.Parse(e.Value.ToString()));
-            e.Graphics.FillRectangle(new SolidBrush(fillColor), e.Bounds);
+            using (var brush = new SolidBrush(fillColor))
+            {
+                e.Graphics.FillRectangle(brush, e.Bounds);
+            }
         }
     }
 }
