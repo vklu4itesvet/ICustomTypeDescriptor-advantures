@@ -179,5 +179,4 @@ namespace TelerikPropertyGrid
             return false;
         }
     }
-
 }
