@@ -15,8 +15,8 @@ namespace TelerikPropertyGrid
             base.OnLoad(e);
 
             var fooProperties = new FooProperties();
-            fooProperties.Add(new Foo { Id = 1, SomeColor = Color.Blue.ToArgb().ToString() });
-            fooProperties.Add(new Foo { Id = 2, SomeColor = Color.Orange.ToArgb().ToString() });
+            fooProperties.Add(new Foo { Id = 1, SomeColor = Color.Blue.ToArgb().ToString(), AnotherColor = Color.DarkBlue.ToArgb() });
+            fooProperties.Add(new Foo { Id = 2, SomeColor = Color.Orange.ToArgb().ToString(), AnotherColor = Color.Red.ToArgb() });
 
             propertyGridWinForms.SelectedObject = fooProperties;
             propertyGridTelerik.SelectedObject = fooProperties;

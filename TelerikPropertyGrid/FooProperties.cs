@@ -40,8 +40,11 @@ namespace TelerikPropertyGrid
 
             for (int i = 0; i < this.List.Count; i++)
             {
-                var pd = new ObjectBrowserPropertyDescriptor(this[i]);
-                customizedProps.Add(pd);
+                var foo = this[i];
+                var smColorPd = new ObjectBrowserPropertyDescriptor(foo, TypeDescriptor.GetProperties(foo)[1]);
+                var anthrColorPd = new ObjectBrowserPropertyDescriptor(foo, TypeDescriptor.GetProperties(foo)[2]);
+                customizedProps.Add(smColorPd);
+                customizedProps.Add(anthrColorPd);
             }
 
             return customizedProps;
@@ -102,11 +105,13 @@ namespace TelerikPropertyGrid
 
     public class ObjectBrowserPropertyDescriptor : PropertyDescriptor
     {
-        private readonly Foo _foo = null;
+        private readonly Foo _foo;
+        private readonly PropertyDescriptor _propertyDescriptor;
 
-        public ObjectBrowserPropertyDescriptor(Foo foo) : base("#" + foo.Id.ToString(), null)
+        public ObjectBrowserPropertyDescriptor(Foo foo, PropertyDescriptor pd) : base("#" + foo.Id.ToString(), null)
         {
             _foo = foo;
+            _propertyDescriptor = pd;
         }
 
         public override string DisplayName
@@ -119,20 +124,19 @@ namespace TelerikPropertyGrid
 
         public override object GetValue(object component)
         {
-            return _foo.SomeColor;
+            return _propertyDescriptor.Name == nameof(_foo.SomeColor) ? (object)_foo.SomeColor : (object)_foo.AnotherColor;
         }
 
         public override Type PropertyType
         {
-            get { return _foo.SomeColor.GetType(); }
+            get { return _propertyDescriptor.GetType(); }
         }
 
         public override AttributeCollection Attributes
         {
             get
             {
-                var editor = TypeDescriptor.GetProperties(_foo)[1].GetEditor(typeof(UITypeEditor));
-                return TypeDescriptor.GetProperties(_foo)[1].Attributes;
+                return _propertyDescriptor.Attributes;
             }
         }
 
@@ -146,37 +150,40 @@ namespace TelerikPropertyGrid
 
         public override bool CanResetValue(object component)
         {
-            return true;
+            return _propertyDescriptor.CanResetValue(component);
         }
 
         public override Type ComponentType
         {
             get
             {
-                return _foo.GetType();
+                return _propertyDescriptor.ComponentType;
             }
         }
 
         public override bool IsReadOnly
         {
-            get { return true; }
+            get { return _propertyDescriptor.IsReadOnly; }
         }
 
         public override string Name
         {
-            get { return "#" + _foo.ToString(); }
+            get { return _propertyDescriptor.Name; }
         }
 
-        public override void ResetValue(object component) { }
+        public override void ResetValue(object component)
+        {
+            _propertyDescriptor.ResetValue(component);
+        }
 
         public override void SetValue(object component, object value)
         {
-           
+            _propertyDescriptor.SetValue(_foo, value);
         }
 
         public override bool ShouldSerializeValue(object component)
         {
-            return false;
+            return _propertyDescriptor.ShouldSerializeValue(component);
         }
     }
 }

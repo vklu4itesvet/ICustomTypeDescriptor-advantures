@@ -23,5 +23,9 @@ namespace TelerikPropertyGrid
                 _someColor = value;
             }
         }
+
+        [Browsable(true)]
+        [TypeConverter(typeof(ColorTypeConverter))]
+        public int AnotherColor { get; set; }
     }
 }
